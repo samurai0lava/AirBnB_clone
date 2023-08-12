@@ -3,12 +3,12 @@
 import datetime
 import json
 from models.base_model import BaseModel
-# from models.user import User
-# from models.state import State
-# from models.city import City
-# from models.amenity import Amenity
-# from models.place import Place
-# from models.review import Review
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class FileStorage:
@@ -23,20 +23,12 @@ class FileStorage:
         classes (dict): A dictionary of all the classes.
     """
 
-    classes = {"BaseModel": BaseModel}
-# "User": User, "State": State, "City": City,
-# "Amenity": Amenity, "Place": Place, "Review": Review}
+    classes = {"BaseModel": BaseModel, "User": User, "State": State,
+               "City": City, "Amenity": Amenity, "Place": Place,
+               "Review": Review}
 
-    def __init__(self):
-        """
-        Initialize the FileStorage instance.
-
-        Attributes:
-            __file_path (str): The path to the JSON file used for storage.
-            __objects (dict): A dictionary to store objects.
-        """
-        self.__file_path = "file.json"
-        self.__objects = {}
+    self.__file_path = "file.json"
+    self.__objects = {}
 
     def all(self):
         """Returns all objects"""
