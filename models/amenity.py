@@ -16,3 +16,9 @@ class Amenity(BaseModel):
 
     """
     name = ""
+
+    def to_dict(self):
+        """Convert the object's attributes to a dictionary."""
+        data = super().to_dict()
+        data['name'] = self.name
+        return data
