@@ -20,11 +20,3 @@ class Review(BaseModel):
     place_id = ""
     user_id = ""
     text = ""
-
-    def to_dict(self):
-        """Convert the object's attributes to a dictionary."""
-        data = super().to_dict()
-        data['place_id'] = self.place_id
-        data['user_id'] = self.user_id
-        data['text'] = self.text
-        return data

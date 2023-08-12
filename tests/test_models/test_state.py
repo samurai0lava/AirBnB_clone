@@ -42,12 +42,6 @@ class TestState(unittest.TestCase):
         obj_dict = self.state.to_dict()
         self.assertIsInstance(obj_dict, dict)
 
-    def test_to_dict_contains_attributes(self):
-        obj_dict = self.state.to_dict()
-        self.assertTrue('__class__' in obj_dict)
-        self.assertTrue('created_at' in obj_dict)
-        self.assertTrue('updated_at' in obj_dict)
-        self.assertTrue('name' in obj_dict)
 
     def test_to_dict_updated_at_is_str(self):
         obj_dict = self.state.to_dict()

@@ -146,7 +146,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         else:
             class_name = args[0]
-            class_count = sum(1 for obj in storage.all().values() if isinstance(obj, self.classes[class_name]))
+            class_count = sum(1 for obj in storage.all().values() 
+        if isinstance(obj, self.classes[class_name]))
             print(class_count)
 
     def do_update(self, arg):
@@ -164,7 +165,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             obj_key = "{}.{}".format(args[0], args[1])
             all_objects = storage.all()
-            #obj = all_objects[obj_key]
             if obj_key in all_objects:
                 if len(args) < 3:
                     print("** attribute name missing **")
@@ -187,4 +187,3 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-
