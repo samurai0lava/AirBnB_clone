@@ -6,6 +6,7 @@ import unittest
 import os
 import json
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 from models.engine.file_storage import FileStorage
 
@@ -23,7 +24,7 @@ class TestFileStorage(unittest.TestCase):
         self.storage = FileStorage()
         self.storage._FileStorage__file_path = self.file_path
         self.obj1 = BaseModel()
-#        self.obj2 = User()
+        self.obj2 = User()
 
     def tearDown(self):
         """
