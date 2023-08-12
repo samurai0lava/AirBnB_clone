@@ -42,7 +42,6 @@ class TestState(unittest.TestCase):
         obj_dict = self.state.to_dict()
         self.assertIsInstance(obj_dict, dict)
 
-
     def test_to_dict_updated_at_is_str(self):
         obj_dict = self.state.to_dict()
         self.assertIsInstance(obj_dict['updated_at'], str)
