@@ -6,7 +6,6 @@ Unittest classe:
 import unittest
 import models
 from models.base_model import BaseModel
-
 from datetime import datetime
 
 
