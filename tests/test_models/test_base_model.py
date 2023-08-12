@@ -1,67 +1,73 @@
 #!/usr/bin/python3
-"""Defines unittests for models/base_model.py.
-Unittest classe:
-    TestBaseModel
-"""
+
 import unittest
-import models
 from models.base_model import BaseModel
-from datetime import datetime
+import datetime
 
 
 class TestBaseModel(unittest.TestCase):
-    """Unittests for testing instantiation of the BaseModel class."""
 
-    def test_init_with_kwargs(self):
-        """
-        Test instantiation of BaseModel with keyword arguments.
+    def setUp(self):
+        self.base_model = BaseModel()
 
-        """
-        d_f = '%Y-%m-%dT%H:%M:%S.%f'
-        created_at = "2023-08-09T12:34:56.789012"
-        updated_at = "2023-08-09T13:45:30.987654"
-        obj_dict = {
-            "id": "test-id",
-            "created_at": created_at,
-            "updated_at": updated_at
-        }
-        obj = BaseModel(**obj_dict)
+    def test_instance_attributes(self):
+        self.assertTrue(hasattr(self.base_model, 'id'))
+        self.assertTrue(hasattr(self.base_model, 'created_at'))
+        self.assertTrue(hasattr(self.base_model, 'updated_at'))
 
-        self.assertEqual(obj.id, "test-id")
-        self.assertEqual(obj.created_at, datetime.strptime(created_at, d_f))
-        self.assertEqual(obj.updated_at, datetime.strptime(updated_at, d_f))
+    def test_id_is_string(self):
+        self.assertIsInstance(self.base_model.id, str)
 
-    def test_init_without_kwargs(self):
-        """
-        Test instantiation of BaseModel without keyword arguments.
+    def test_created_at_is_datetime(self):
+        self.assertIsInstance(self.base_model.created_at, datetime.datetime)
 
-        """
-        obj = BaseModel()
-        self.assertIsInstance(obj.id, str)
-        self.assertIsInstance(obj.created_at, datetime)
-        self.assertIsInstance(obj.updated_at, datetime)
+    def test_updated_at_is_datetime(self):
+        self.assertIsInstance(self.base_model.updated_at, datetime.datetime)
 
-    def test_save(self):
-        """
-        Test the 'save' method of BaseModel.
+    def test_str_representation(self):
+        expected = "[BaseModel] ({}) {}".format(
+            self.base_model.id, self.base_model.__dict__)
+        self.assertEqual(str(self.base_model), expected)
 
-        """
-        obj = BaseModel()
-        prev_updated_at = obj.updated_at
-        obj.save()
-        self.assertNotEqual(prev_updated_at, obj.updated_at)
+    def test_save_updates_updated_at(self):
+        old_updated_at = self.base_model.updated_at
+        self.base_model.save()
+        new_updated_at = self.base_model.updated_at
+        self.assertNotEqual(old_updated_at, new_updated_at)
 
-    def test_to_dict(self):
-        """
-        Test the 'to_dict' method of BaseModel.
+    def test_to_dict_returns_dict(self):
+        obj_dict = self.base_model.to_dict()
+        self.assertIsInstance(obj_dict, dict)
 
-        """
-        obj = BaseModel()
-        obj_dict = obj.to_dict()
+    def test_to_dict_contains_attributes(self):
+        obj_dict = self.base_model.to_dict()
+        self.assertTrue('__class__' in obj_dict)
+        self.assertTrue('created_at' in obj_dict)
+        self.assertTrue('updated_at' in obj_dict)
+
+    def test_to_dict_updated_at_is_str(self):
+        obj_dict = self.base_model.to_dict()
+        self.assertIsInstance(obj_dict['updated_at'], str)
+
+    def test_to_dict_created_at_is_str(self):
+        obj_dict = self.base_model.to_dict()
+        self.assertIsInstance(obj_dict['created_at'], str)
+
+    def test_to_dict_has_correct_class_name(self):
+        obj_dict = self.base_model.to_dict()
         self.assertEqual(obj_dict['__class__'], 'BaseModel')
-        self.assertEqual(obj_dict['id'], obj.id)
-        self.assertEqual(obj_dict['created_at'], obj.created_at.isoformat())
-        self.assertEqual(obj_dict['updated_at'], obj.updated_at.isoformat())
+
+    def test_from_dict_creates_instance(self):
+        obj_dict = self.base_model.to_dict()
+        new_instance = BaseModel(**obj_dict)
+        self.assertIsInstance(new_instance, BaseModel)
+
+    def test_from_dict_attributes_match(self):
+        obj_dict = self.base_model.to_dict()
+        new_instance = BaseModel(**obj_dict)
+        self.assertEqual(self.base_model.id, new_instance.id)
+        self.assertEqual(self.base_model.created_at, new_instance.created_at)
+        self.assertEqual(self.base_model.updated_at, new_instance.updated_at)
 
 
 if __name__ == '__main__':
