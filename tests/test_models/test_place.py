@@ -48,6 +48,6 @@ class TestPlace(unittest.TestCase):
         self.assertIsInstance(self.place.longitude, float)
         self.assertIsInstance(self.place.amenity_ids, list)
 
+
 if __name__ == '__main__':
     unittest.main()
-
