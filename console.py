@@ -28,7 +28,6 @@ class HBNBCommand(cmd.Cmd):
             "Review": Review
         }
 
-
     def do_quit(self, arg):
         """Quit command to exit the program"""
         return True
@@ -70,7 +69,7 @@ class HBNBCommand(cmd.Cmd):
             new_instance.save()
             print(new_instance.id)
 
-     def do_show(self, arg):
+    def do_show(self, arg):
         """
         Prints the string representation of an instance
         based on the class name and id.
