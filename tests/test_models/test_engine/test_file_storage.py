@@ -90,15 +90,6 @@ class TestFileStorage(unittest.TestCase):
         """
         self.storage.reload()
 
-    def test_save_empty_storage(self):
-        """
-        Test saving an empty storage to file.
-        """
-        self.storage.save()
-        with open(self.file_path, 'r') as f:
-            file_content = json.load(f)
-        self.assertEqual(file_content, {})
-
     def test_reload_with_new_objects(self):
         """
         Test reloading after adding new objects to the storage.

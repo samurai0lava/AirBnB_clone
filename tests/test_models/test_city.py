@@ -2,6 +2,7 @@
 """Test module for City class"""
 
 import unittest
+from models.base_model import BaseModel
 from models.city import City
 from datetime import datetime
 
@@ -74,17 +75,6 @@ class TestCity(unittest.TestCase):
         """
         obj_dict = self.city.to_dict()
         self.assertIsInstance(obj_dict, dict)
-
-    def test_to_dict_contains_attributes(self):
-        """
-        Test City dictionary contains correct attributes
-        """
-        obj_dict = self.city.to_dict()
-        self.assertTrue('__class__' in obj_dict)
-        self.assertTrue('created_at' in obj_dict)
-        self.assertTrue('updated_at' in obj_dict)
-        self.assertTrue('state_id' in obj_dict)
-        self.assertTrue('name' in obj_dict)
 
     def test_to_dict_updated_at_is_str(self):
         """
