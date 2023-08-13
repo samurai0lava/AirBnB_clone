@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Unittest for FileStorage class"""
 
-
 import unittest
 import os
 import json
@@ -90,6 +89,30 @@ class TestFileStorage(unittest.TestCase):
         ensures that 'reload' method handles when file does not exist case.
         """
         self.storage.reload()
+
+    def test_save_empty_storage(self):
+        """
+        Test saving an empty storage to file.
+        """
+        self.storage.save()
+        with open(self.file_path, 'r') as f:
+            file_content = json.load(f)
+        self.assertEqual(file_content, {})
+
+    def test_reload_with_new_objects(self):
+        """
+        Test reloading after adding new objects to the storage.
+        """
+        obj1 = BaseModel()
+        obj2 = User()
+        self.storage.new(obj1)
+        self.storage.new(obj2)
+        self.storage.save()
+        self.storage.reload()
+        obj1_key = "{}.{}".format(obj1.__class__.__name__, obj1.id)
+        obj2_key = "{}.{}".format(obj2.__class__.__name__, obj2.id)
+        self.assertIn(obj1_key, self.storage._FileStorage__objects)
+        self.assertIn(obj2_key, self.storage._FileStorage__objects)
 
 
 if __name__ == '__main__':

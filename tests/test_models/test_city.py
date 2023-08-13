@@ -1,71 +1,131 @@
 #!/usr/bin/python3
-"""Test module for Amenity class"""
+"""Test module for City class"""
 
 import unittest
-from models.amenity import Amenity
-from models.base_model import BaseModel
+from models.city import City
 from datetime import datetime
 
 
-class TestAmenity(unittest.TestCase):
+class TestCity(unittest.TestCase):
 
     def setUp(self):
-        self.amenity = Amenity()
+        """
+        Set up for the test
+        """
+        self.city = City()
 
     def test_attributes(self):
-        self.assertTrue(hasattr(self.amenity, 'name'))
+        """
+        Test City attributes initialization
+        """
+        self.assertTrue(hasattr(self.city, 'state_id'))
+        self.assertTrue(hasattr(self.city, 'name'))
+
+    def test_state_id_is_string(self):
+        """
+        Test City attribute types
+        """
+        self.assertIsInstance(self.city.state_id, str)
 
     def test_name_is_string(self):
-        self.assertIsInstance(self.amenity.name, str)
+        """
+        test name is string
+        """
+        self.assertIsInstance(self.city.name, str)
 
     def test_inherits_from_base_model(self):
-        self.assertIsInstance(self.amenity, BaseModel)
+        """
+        Test City inheritance
+        """
+        self.assertIsInstance(self.city, BaseModel)
 
     def test_str_representation(self):
-        expected = "[Amenity] ({}) {}".format(
-            self.amenity.id, self.amenity.__dict__)
-        self.assertEqual(str(self.amenity), expected)
+        """
+        Test City string representation
+        """
+        expected = "[City] ({}) {}".format(
+            self.city.id, self.city.__dict__)
+        self.assertEqual(str(self.city), expected)
 
     def test_created_at_is_datetime(self):
-        self.assertIsInstance(self.amenity.created_at, datetime)
+        """
+        Test City created_at is datetime
+        """
+        self.assertIsInstance(self.city.created_at, datetime)
 
     def test_updated_at_is_datetime(self):
-        self.assertIsInstance(self.amenity.updated_at, datetime)
+        """
+        Test City updated_at is datetime
+        """
+        self.assertIsInstance(self.city.updated_at, datetime)
 
     def test_save_updates_updated_at(self):
-        old_updated_at = self.amenity.updated_at
-        self.amenity.save()
-        new_updated_at = self.amenity.updated_at
+        """
+        Test City save method
+        """
+        old_updated_at = self.city.updated_at
+        self.city.save()
+        new_updated_at = self.city.updated_at
         self.assertNotEqual(old_updated_at, new_updated_at)
 
     def test_to_dict_returns_dict(self):
-        obj_dict = self.amenity.to_dict()
+        """
+        Test City to_dict method
+        """
+        obj_dict = self.city.to_dict()
         self.assertIsInstance(obj_dict, dict)
 
+    def test_to_dict_contains_attributes(self):
+        """
+        Test City dictionary contains correct attributes
+        """
+        obj_dict = self.city.to_dict()
+        self.assertTrue('__class__' in obj_dict)
+        self.assertTrue('created_at' in obj_dict)
+        self.assertTrue('updated_at' in obj_dict)
+        self.assertTrue('state_id' in obj_dict)
+        self.assertTrue('name' in obj_dict)
+
     def test_to_dict_updated_at_is_str(self):
-        obj_dict = self.amenity.to_dict()
+        """
+        Test City updated_at is string
+        """
+        obj_dict = self.city.to_dict()
         self.assertIsInstance(obj_dict['updated_at'], str)
 
     def test_to_dict_created_at_is_str(self):
-        obj_dict = self.amenity.to_dict()
+        """
+        Test City created_at is string
+        """
+        obj_dict = self.city.to_dict()
         self.assertIsInstance(obj_dict['created_at'], str)
 
     def test_to_dict_has_correct_class_name(self):
-        obj_dict = self.amenity.to_dict()
-        self.assertEqual(obj_dict['__class__'], 'Amenity')
+        """
+        Test City __class__ key in dictionary
+        """
+        obj_dict = self.city.to_dict()
+        self.assertEqual(obj_dict['__class__'], 'City')
 
     def test_from_dict_creates_instance(self):
-        obj_dict = self.amenity.to_dict()
-        new_instance = Amenity(**obj_dict)
-        self.assertIsInstance(new_instance, Amenity)
+        """
+        Test City from_dict method
+        """
+        obj_dict = self.city.to_dict()
+        new_instance = City(**obj_dict)
+        self.assertIsInstance(new_instance, City)
 
     def test_from_dict_attributes_match(self):
-        obj_dict = self.amenity.to_dict()
-        new_instance = Amenity(**obj_dict)
-        self.assertEqual(self.amenity.id, new_instance.id)
-        self.assertEqual(self.amenity.created_at, new_instance.created_at)
-        self.assertEqual(self.amenity.updated_at, new_instance.updated_at)
-        self.assertEqual(self.amenity.name, new_instance.name)
+        """
+        Test City from_dict method attributes match
+        """
+        obj_dict = self.city.to_dict()
+        new_instance = City(**obj_dict)
+        self.assertEqual(self.city.id, new_instance.id)
+        self.assertEqual(self.city.created_at, new_instance.created_at)
+        self.assertEqual(self.city.updated_at, new_instance.updated_at)
+        self.assertEqual(self.city.state_id, new_instance.state_id)
+        self.assertEqual(self.city.name, new_instance.name)
 
 
 if __name__ == '__main__':
