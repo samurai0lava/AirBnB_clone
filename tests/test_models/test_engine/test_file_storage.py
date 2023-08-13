@@ -105,6 +105,14 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn(obj1_key, self.storage._FileStorage__objects)
         self.assertIn(obj2_key, self.storage._FileStorage__objects)
 
+    def test_save_empty_storage(self):
+        """
+        Test saving an empty storage to file.
+        """
+        self.storage.save()
+        with open(self.file_path, 'r') as f:
+            file_content = json.load(f)
+        self.assertEqual(file_content, {})
 
 if __name__ == '__main__':
     unittest.main()
