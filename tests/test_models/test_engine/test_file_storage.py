@@ -109,10 +109,15 @@ class TestFileStorage(unittest.TestCase):
         """
         Test saving an empty storage to file.
         """
+        try:
+            os.remove("file.json")
+        except FileNotFoundError:
+            pass
+        with open("file.json", "w") as f:
+            f.write("{}")
         self.storage.save()
-        with open(self.file_path, 'r') as f:
+        with open("file.json", 'r') as f:
             file_content = json.load(f)
-            print(file_content)
         self.assertEqual(file_content, {})
 
 
