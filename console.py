@@ -16,6 +16,11 @@ import json
 
 
 class HBNBCommand(cmd.Cmd):
+    """Defines the HBNB command interpreter.
+    Attributes:
+        prompt (str): The command prompt.
+    """
+
     prompt = "(hbnb) "
 
     classes = {
@@ -111,6 +116,15 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def precmd(self, line):
+        """
+        Preprocesses user command lines for object method calls.
+        Args:
+            self: Instance of the class.
+            line (str): User command line.
+
+        Returns:
+        str: Preprocessed command line.
+        """
 
         comd = ['create', 'show', 'update', 'all', 'destroy', 'count']
 
@@ -134,7 +148,8 @@ class HBNBCommand(cmd.Cmd):
         elif args[0] not in self.classes:
             print("** class doesn't exist **")
         else:
-            print([str(obj) for key, obj in all_objects.items() if key.startswith(args[0])])
+            print([str(obj) for key, obj in all_objects.items()
+                   if key.startswith(args[0])])
 
     def do_count(self, arg):
         """Prints the number of instances of a class."""
@@ -146,8 +161,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         else:
             class_name = args[0]
-            class_count = sum(1 for obj in storage.all().values() 
-        if isinstance(obj, self.classes[class_name]))
+            class_count = sum(1 for obj in storage.all().values()
+                              if isinstance(obj, self.classes[class_name]))
             print(class_count)
 
     def do_update(self, arg):
