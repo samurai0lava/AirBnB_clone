@@ -25,8 +25,8 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key != '__class__':
                     setattr(self, key, value)
-            self.created_at = datetime.strptime(kwargs.get('created_at'), d_f)
-            self.updated_at = datetime.strptime(kwargs.get('updated_at'), d_f)
+                self.created_at = datetime.strptime(kwargs.get('created_at'), d_f)
+                self.updated_at = datetime.strptime(kwargs.get('updated_at'), d_f)
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()

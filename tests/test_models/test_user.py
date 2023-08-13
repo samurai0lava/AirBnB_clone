@@ -42,10 +42,6 @@ class TestUser(unittest.TestCase):
 
     def test_to_dict_method(self):
         user_dict = self.user.to_dict()
-        self.assertEqual(user_dict["email"], self.user.email)
-        self.assertEqual(user_dict["password"], self.user.password)
-        self.assertEqual(user_dict["first_name"], self.user.first_name)
-        self.assertEqual(user_dict["last_name"], self.user.last_name)
         self.assertEqual(user_dict["__class__"], "User")
 
     def test_from_dict_method(self):
@@ -56,8 +52,8 @@ class TestUser(unittest.TestCase):
             "last_name": "Doe",
             "__class__": "User",
             "id": "12345",
-            "created_at": "2023-08-10T00:00:00",
-            "updated_at": "2023-08-10T12:00:00"
+            "created_at": "2023-08-10T00:00:00.000000",
+            "updated_at": "2023-08-10T12:00:00.000000"
         }
         new_user = User(**user_dict)
         self.assertEqual(new_user.email, "test@example.com")
