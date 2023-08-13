@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+"""Defines unittests for console.py."""
+
 import unittest
 from unittest.mock import patch, MagicMock
 from io import StringIO
@@ -6,7 +8,9 @@ from console import HBNBCommand
 
 
 class TestHBNBCommand(unittest.TestCase):
-
+    """This class defines a set of unit tests for the HBNBCommand
+       console application.
+    """
     def setUp(self):
         self.console = HBNBCommand()
         self.mock_stdout = MagicMock()
@@ -33,6 +37,7 @@ class TestHBNBCommand(unittest.TestCase):
     def test_create_BaseModel(self, mock_stdout):
         self.assertFalse(self.console.onecmd("create BaseModel"))
         self.assertTrue(mock_stdout.getvalue() != "")
+
 
 if __name__ == '__main__':
     unittest.main()
